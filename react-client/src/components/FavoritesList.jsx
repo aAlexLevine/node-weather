@@ -8,7 +8,7 @@ const FavoritesList = ({ favorites, handleSearchSubmit }) => {
   };
 
   return (
-    <ul className="list-group">
+    <ul className="list-group" data-testid="favoritesList">
       {favorites.map((location, i) => (
         <div
           className="list-group-item list-group-item-action"

@@ -1,5 +1,10 @@
 {
-  "extends": ["airbnb", "airbnb/hooks"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:testing-library/recommended/react",
+    "plugin:jest-dom/recommended"
+  ],
   "env": {
     "browser": true,
     "es6": true

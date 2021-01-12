@@ -12,7 +12,7 @@ const WeatherCard = ({ weatherData }) => {
   const temperature = Math.round(temp);
 
   return (
-    <div>
+    <div data-testid="weatherCard">
       <p contentEditable="true" spellcheckker="false" />
       <div className="card" style={{ marginTop: '30px' }}>
         <div className="card" style={{ marginTop: '0px' }}>
@@ -29,7 +29,7 @@ const WeatherCard = ({ weatherData }) => {
                   </div>
                   <div className="col">
                     <img
-                      alt=""
+                      alt="icon"
                       src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
                     />
                   </div>

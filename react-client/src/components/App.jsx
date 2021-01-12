@@ -50,7 +50,6 @@ const App = () => {
 
   const handleSearchSubmit = (event, zip = searchTerm) => {
     event.preventDefault();
-    console.log('subtmie search');
     if (isZipCodeValid(zip)) {
       fetchWeatherByZip(zip);
       setSearchTerm('');
@@ -65,15 +64,11 @@ const App = () => {
 
   useEffect(() => {
     if (weatherData !== null) {
-      console.log('useEffect weatherData:', weatherData);
-      console.log('weatherData !== null');
       showWeather();
     }
   }, [weatherData]);
 
   useEffect(() => {
-    //every time searchterm is updated,
-    //update apps display of favorites with filtered list
     if (searchTerm.length === 0) {
       hideFavorites();
     } else if (searchTerm.length > 0) {
