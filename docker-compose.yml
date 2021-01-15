@@ -4,16 +4,13 @@ version: "3.7"
 services:
   app:
     image: node:12-alpine # internal to docker// i think it just means use node
-    command: sh -c "npm install && npm run react-dev" # what to run on start
+    command: sh -c "npm install && npm run start" # what to run on start
     ports:
-      - 8080:8080 # maps local host port to container port
-    working_dir: /node-weather # where the app is
+      - 3000:3000 # maps local host port to container port
+    working_dir: /app # where the app is
     volumes: 
-      - ./:/node-weather
-      # /bindmount:rw
-      # The volume is effectively hiding node_modules from the host and must be in this order
-      # - node_modules:/node_modules
-    environment: #env vars for database
+      - ./:/app
+    environment: 
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
@@ -21,12 +18,12 @@ services:
 
   back:
     image: node:12-alpine
-    command: sh -c "npm install && npm run server-dev"
-    working_dir: /node-weather
+    command: sh -c "yarn run react-dev"
+    working_dir: /back
     ports: 
-      - 3000:3000
+      - 8080:8080
     volumes: 
-      - ./:/node-weather
+      - ./:/back
   
   mysql:
     image: mysql:5.7

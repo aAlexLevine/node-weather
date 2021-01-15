@@ -1,14 +1,13 @@
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database-mysql');
-const path = require('path');
 const mainRoutes = require('./mainRoutes.js');
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));
 app.use(bodyParser.json());
-
 app.use('/api/main', mainRoutes);
 
 const port = process.env.PORT || 3000;
@@ -26,8 +25,8 @@ db.init()
 
 const gracefulShutdown = () => {
   db.teardown()
-  .then(() => process.exit())
-  .catch((err) => console.log(err))
+    .then(() => process.exit())
+    .catch((err) => console.log(err));
 };
 
 process.on('SIGINT', gracefulShutdown);

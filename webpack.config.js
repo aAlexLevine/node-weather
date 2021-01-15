@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 
 const SRC_DIR = path.join(__dirname, '/react-client/src');
@@ -49,10 +50,11 @@ module.exports = {
     port: 8080,
     hot: true,
     open: false,
+    // disableHostCheck: true,
     proxy: {
       '/api': {
         // target: 'http://localhost:3000',
-        target: 'http://back:3000',
+        target: 'http://app:3000',
       },
     },
   },
@@ -61,8 +63,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
     }),
+    // new Dotenv(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  // target: 'node'
+  // node: {
+  //   fs: 'empty',
+  //   net: 'empty',
+  //   tls: 'empty',
+  //   process: false
+  // }
 };

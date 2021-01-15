@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const WeatherCard = ({ weatherData }) => {
+const WeatherCard = ({ weatherData, addToFavorites, favorites }) => {
   const {
     weather,
     main: { temp, pressure, humidity },
     wind: { speed },
     name,
+    zip,
   } = weatherData;
   const [{ main: mainCondition, icon }] = weather;
   const temperature = Math.round(temp);
+
+  const handleClickAdd = () => {
+    addToFavorites(zip, name);
+  };
+
+  const isSaved = () => favorites.some((fav) => fav.zip === zip);
 
   return (
     <div data-testid="weatherCard">
@@ -47,9 +54,19 @@ const WeatherCard = ({ weatherData }) => {
                 </div>
               </div>
             </div>
-            <button className="btn btn-primary" type="button">
-              Add to favorites
-            </button>
+            {isSaved() ? (
+              <button className=" btn:disabled" type="button" disabled>
+                Saved
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={handleClickAdd}
+              >
+                Add to favorites
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -60,10 +77,12 @@ const WeatherCard = ({ weatherData }) => {
 
 WeatherCard.propTypes = {
   weatherData: PropTypes.shape({
-    weather: PropTypes.arrayOf(PropTypes.shape({
-      main: PropTypes.string.isRequired,
-      icon: PropTypes.string.isRequired,
-    })).isRequired,
+    weather: PropTypes.arrayOf(
+      PropTypes.shape({
+        main: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
     main: PropTypes.shape({
       temp: PropTypes.number.isRequired,
       pressure: PropTypes.number.isRequired,
@@ -73,7 +92,10 @@ WeatherCard.propTypes = {
       speed: PropTypes.number.isRequired,
     }).isRequired,
     name: PropTypes.string.isRequired,
+    zip: PropTypes.string.isRequired,
   }).isRequired,
+  addToFavorites: PropTypes.func.isRequired,
+  favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default WeatherCard;
