@@ -21,11 +21,11 @@ const FavoritesList = ({
           key={zip}
           onClick={(event) => handleSearchSubmit(event, zip)}
           onKeyPress={(event) => handleSearchSubmit(event, zip)}
+          style={{ cursor: 'pointer' }}
         >
           <div className="row">
             <div className="col-sm-4">{name}</div>
             <div className="col-sm-4">{zip}</div>
-
             <div className="col-sm-4">
               <button
                 type="button"

@@ -9,8 +9,9 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb/hooks',
     'airbnb',
-    'plugin:testing-library/recommended/react',
-    'plugin:jest-dom/recommended'
+    'plugin:testing-library/recommended/react',//this breaks lint use library/react instead
+    'plugin:jest-dom/recommended',
+    //install jest pkg
   ],
   globals: {
     Atomics: 'readonly',

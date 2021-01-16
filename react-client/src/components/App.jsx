@@ -16,7 +16,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    getAllFavoriteZips();
+    // getAllFavoriteZips();
   }, []);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const App = () => {
     axios
       .get('/api/main/getAllFavoriteZips')
       .then((results) => {
-        const sorted = sortByName(results.data)
+        const sorted = sortByName(results.data);
         setFavorites(sorted);
       })
       .catch((err) => console.log('Error: Failed to fetch favorites', err));
@@ -61,17 +61,21 @@ const App = () => {
       })
       .catch((err) => console.log('Error: Failed to add to favorites', err));
   };
-
+  // "start": "npm run build && nodemon server/index.js",----------------------------
   const removeZipFromFavorites = (zip) => {
     axios
       .post('/api/main/removeFromFavorites', { zip })
       .then(() => {
         setFavorites((prevFavorites) => {
-          const removedFavorites = prevFavorites.filter((fav) => fav.zip !== zip);
+          const removedFavorites = prevFavorites.filter(
+            (fav) => fav.zip !== zip
+          );
           return removedFavorites;
         });
       })
-      .catch((err) => console.log('Error: Failed to remove from favorites', err));
+      .catch((err) =>
+        console.log('Error: Failed to remove from favorites', err)
+      );
   };
 
   const handleSearchSubmit = (event, zip = searchTerm) => {
