@@ -10,7 +10,7 @@ Get weather details retrieved from the [openweathermap API](https://openweatherm
 
 ## Success Response
 
-**Condition** : If Account exists and Authorized User has required permissions.
+**Condition** : If zip is validated through openweather
 
 **Code** : `200 OK`
 

@@ -7,7 +7,7 @@ import App from './App';
 const setup = () => render(<App />);
 
 const server = setupServer(
-  rest.get('http://localhost/api/main/getAllFavoriteZips', (req, res, ctx) => {
+  rest.get('http://localhost:3000/api/main/getAllFavoriteZips', (req, res, ctx) => {
     res(ctx.json({ test: 'mock response' }));
   })
 );

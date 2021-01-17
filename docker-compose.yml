@@ -4,7 +4,7 @@ version: "3.7"
 services:
   app:
     image: node:12-alpine # internal to docker// i think it just means use node
-    command: sh -c "npm install && npm run start" # what to run on start
+    command: sh -c "npm install && npm run server-dev" # what to run on start
     ports:
       - 3000:3000 # maps local host port to container port
     working_dir: /app # where the app is
@@ -16,14 +16,14 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_DB: weather
 
-  # back:
-  #   image: node:12-alpine
-  #   command: sh -c "npm install && npm run react-dev"
-  #   working_dir: /app
-  #   ports: 
-  #     - 8080:8080
-  #   volumes: 
-  #     - ./:/app
+  back:
+    image: node:12-alpine
+    command: sh -c "npm run react-dev"
+    working_dir: /app
+    ports: 
+      - 8080:8080
+    volumes: 
+      - ./:/app
   
   mysql:
     image: mysql:5.7

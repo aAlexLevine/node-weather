@@ -6,7 +6,8 @@ const router = express.Router();
 
 router.get('/getWeatherByZip', (req, res) => {
   const { zip } = req.query;
-  openWeatherAPI.getWeatherByZip(zip)
+  openWeatherAPI
+    .getWeatherByZip(zip)
     .then((results) => {
       if (!results) {
         res.statusMessage = 'city not found';
@@ -27,16 +28,19 @@ router.get('/getWeatherByZip', (req, res) => {
 router.get('/getAllFavoriteZips', (req, res) => {
   db.getAllFavoriteZips()
     .then((zips) => {
+      console.log('zips---', zips);
       res.send(zips);
     })
-    .catch((err) => console.log('Error: Server could not retrieve favorites', err))
+    .catch((err) =>
+      console.log('Error: Server could not retrieve favorites', err)
+    );
 });
 
 router.post('/addToFavorites', (req, res) => {
   const zipData = req.body;
   db.addToFavorites(zipData)
-    .then((results) => {
-      res.send(results);
+    .then(() => {
+      db.getAllFavoriteZips().then((zips) => res.send(zips));
     })
     .catch((err) => {
       res.send(err);
@@ -47,12 +51,12 @@ router.post('/addToFavorites', (req, res) => {
 router.post('/removeFromFavorites', (req, res) => {
   const zip = req.body;
   db.removeFromFavorites(zip)
-    .then((results) => {
-      res.send(results);
+    .then(() => {
+      db.getAllFavoriteZips().then((zips) => res.send(zips));
     })
     .catch((err) => {
-      res.send(err)
-      console.log('Error: Server could not retrieve favorites');
+      res.send(err);
+      console.log('Error: Server could not retrieve favorites', err);
     });
 });
 

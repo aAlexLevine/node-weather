@@ -55,7 +55,7 @@ const teardown = () => new Promise((resolve, reject) => {
 });
 
 const getAllFavoriteZips = () => new Promise((resolve, reject) => {
-  pool.query('SELECT * FROM favorites', (err, rows) => {
+  pool.query('SELECT * FROM favorites ORDER BY name, zip ASC', (err, rows) => {
     if (err) {
       return reject(err);
     }

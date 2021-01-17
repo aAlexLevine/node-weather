@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import isZipCodeValid from './utils/zipCodeValidation';
-import sortByName from './utils/sortByName';
 import NavigationBar from './NavigationBar';
 import Search from './Search';
 import Footer from './Footer';
 import FavoritesList from './FavoritesList';
 import WeatherCard from './WeatherCard';
+import useFavorites from './useFavorites';
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [isWeatherVisible, setIsWeatherVisible] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [isFavoritesVisible, setIsFavoritesVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const {
+    favorites,
+    getAllFavoriteZips,
+    addToFavorites,
+    removeZipFromFavorites,
+  } = useFavorites();
 
   useEffect(() => {
-    // getAllFavoriteZips();
+    getAllFavoriteZips();
   }, []);
 
   useEffect(() => {
@@ -38,44 +43,6 @@ const App = () => {
       .get('/api/main/getWeatherByZip', { params: { zip } })
       .then((results) => setWeatherData(results.data))
       .catch((err) => console.log('Error: Failed to fetch weather', err));
-  };
-
-  const getAllFavoriteZips = () => {
-    axios
-      .get('/api/main/getAllFavoriteZips')
-      .then((results) => {
-        const sorted = sortByName(results.data);
-        setFavorites(sorted);
-      })
-      .catch((err) => console.log('Error: Failed to fetch favorites', err));
-  };
-
-  const addToFavorites = (zip, name) => {
-    axios
-      .post('/api/main/addToFavorites', { zip, name })
-      .then(({ data: { insertId } }) => {
-        setFavorites((prevFavorites) => {
-          const addedFavorites = [...prevFavorites, { zip, name, insertId }];
-          return sortByName(addedFavorites);
-        });
-      })
-      .catch((err) => console.log('Error: Failed to add to favorites', err));
-  };
-  // "start": "npm run build && nodemon server/index.js",----------------------------
-  const removeZipFromFavorites = (zip) => {
-    axios
-      .post('/api/main/removeFromFavorites', { zip })
-      .then(() => {
-        setFavorites((prevFavorites) => {
-          const removedFavorites = prevFavorites.filter(
-            (fav) => fav.zip !== zip
-          );
-          return removedFavorites;
-        });
-      })
-      .catch((err) =>
-        console.log('Error: Failed to remove from favorites', err)
-      );
   };
 
   const handleSearchSubmit = (event, zip = searchTerm) => {

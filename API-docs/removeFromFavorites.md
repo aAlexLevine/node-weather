@@ -24,19 +24,26 @@ Provide zip code of the location to be removed.
 
 **Code** : `200 OK`
 
-**Content example**
+**Content** : Returns updated favorites
 
 ```json
-{
-    "fieldCount": 0,
-    "affectedRows": 1,
-    "insertId": 0,
-    "serverStatus": 2,
-    "warningCount": 0,
-    "message": "",
-    "protocol41": true,
-    "changedRows": 0
-}
+[
+    {
+        "id": 22,
+        "name": "Brooklyn",
+        "zip": "11222"
+    },
+    {
+        "id": 23,
+        "name": "Miami",
+        "zip": "33101"
+    },
+    {
+        "id": 31,
+        "name": "Albany",
+        "zip": "12222"
+    }
+]
 ```
 
 ## Error Responses
