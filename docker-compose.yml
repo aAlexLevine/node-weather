@@ -15,15 +15,6 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_DB: weather
       OPEN_WEATHER_API_KEY: 655dfc390726be35679ee1f171b45301
-
-  # back:
-  #   image: node:12-alpine
-  #   command: sh -c "npm run react-dev"
-  #   working_dir: /app
-  #   ports: 
-  #     - 8080:8080
-  #   volumes: 
-  #     - ./:/app
   
   mysql:
     image: mysql:5.7

@@ -28,18 +28,6 @@ You can rebuild locally with `npm run build` or to rebuild the bundle with the d
 
 You can close the containers by running  `docker-compose down`
 
-### Local Development
-
-Assumes Node, MySQL 5.7 installed
-* `npm install`
-* `mysql.server start`
-* `npm start` - for bundle and server
-
-or for hot reloading
-* `npm run react-dev`
-* `npm run server-dev`
-
-
 ## API Documentation
 See the directory API-docs
 
