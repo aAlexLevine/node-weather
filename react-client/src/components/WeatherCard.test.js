@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import WeatherCard from './WeatherCard';
 
 const setup = (favorites = []) => {
-  const handler = jest.fn(); //.mockImplementation((e) => e.preventDefault());
+  const handler = jest.fn();
   const utils = render(
     <WeatherCard
       weatherData={weatherData}
@@ -72,7 +72,7 @@ describe('WeatherCard', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: 'Add to favorites' })
-    ).not.toHaveAttribute('disabled')
+    ).not.toHaveAttribute('disabled');
   });
 
   it('does not contain the add to favorites button when zip is in favorites', () => {
@@ -84,9 +84,9 @@ describe('WeatherCard', () => {
     expect(
       screen.queryByRole('button', { name: 'Add to favorites' })
     ).toBeNull();
-    expect(
-      screen.getByRole('button', { name: 'Saved' })
-    ).toHaveAttribute('disabled');
+    expect(screen.getByRole('button', { name: 'Saved' })).toHaveAttribute(
+      'disabled'
+    );
   });
 
   it('handles add to favorites', () => {

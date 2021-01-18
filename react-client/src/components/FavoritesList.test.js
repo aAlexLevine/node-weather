@@ -8,7 +8,7 @@ const setup = () => {
     { name: 'New York', zip: '10001' },
     { name: 'Miami', zip: '33101' },
   ];
-  const clickHandler = jest.fn(); //.mockImplementation((e) => e.preventDefault());
+  const clickHandler = jest.fn();
   const utils = render(
     <FavoritesList
       favorites={favorites}
@@ -37,7 +37,6 @@ describe('FavoritesList', () => {
     userEvent.click(screen.getByText('New York'));
     expect(clickHandler).toHaveBeenCalledTimes(1);
   });
-
 
   it('list items contain delete button', () => {
     const { clickHandler } = setup();

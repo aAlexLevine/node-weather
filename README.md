@@ -21,18 +21,57 @@ Note: This may take a few minutes, a few things are happening.
 
 This set up is not configured for optimal development and any changes made to the code will require a a re-build of the bundle.js. 
 
-To rebuild the bundle with the docker containers running, run the following in the terminal
+You can rebuild locally with `npm run build` or to rebuild the bundle with the docker containers running by running the following in the terminal
 * `docker ps` - gets a list of running containers and their ID's
 * `docker exec -it <CONTAINER_ID> /bin/sh`
 * `npm run build`
 
 You can close the containers by running  `docker-compose down`
 
+### Local Development
+
+Assumes Node, MySQL 5.7 installed
+* `npm install`
+* `mysql.server start`
+* `npm start` - for bundle and server
+
+or for hot reloading
+* `npm run react-dev`
+* `npm run server-dev`
+
+
+## API Documentation
+See the directory API-docs
+
+The Express Server exposes these endpoints
+* [addToFavorites](API-docs/addToFavorites.md)
+* [getAllFavoriteZips](API-docs/getAllFavoriteZips.md)
+* [getWeatherByZip](API-docs/getWeatherByZip.md)
+* [removeFromFavorites](API-docs/removeFromFavorites.md)
+
+## Testing
+
+Unit testing is managed by Jest and React Testing Library
+
+Testing for this application is motivated not by implementation details but how a user actually engages with the DOM.
+
+See [this article](https://kentcdodds.com/blog/introducing-the-react-testing-library) by Kent C. Dodds for a good primer on the library and the thought process behind it.
+
+
+* `npm run test`
+
+## Built With
+
+* Node
+* React
+* Express
+* MySQL
+
 ## Roadmap
 
 #### Future Feature Proposals
 
-* Favorites List will filter itself as the user types to displaying only matching entries, e.g. typing "112" will display only [11222, 11233, 11244] instead of the entire list.
+* Favorites List will filter itself as the user types to display only matching entries, e.g. typing "112" will display only [11222, 11233, 11244] instead of the entire list.
 
 * Favorites List with sort itself based upon how often its clicked. 
 

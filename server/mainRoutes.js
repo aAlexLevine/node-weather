@@ -31,9 +31,7 @@ router.get('/getAllFavoriteZips', (req, res) => {
       console.log('zips---', zips);
       res.send(zips);
     })
-    .catch((err) =>
-      console.log('Error: Server could not retrieve favorites', err)
-    );
+    .catch((err) => console.log('Error: Server could not retrieve favorites', err));
 });
 
 router.post('/addToFavorites', (req, res) => {

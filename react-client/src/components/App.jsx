@@ -20,6 +20,7 @@ const App = () => {
     removeZipFromFavorites,
   } = useFavorites();
 
+
   useEffect(() => {
     getAllFavoriteZips();
   }, []);

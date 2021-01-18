@@ -1,13 +1,12 @@
-# schema version - https://docs.docker.com/compose/compose-file/
 version: "3.7"
 
 services:
   app:
-    image: node:12-alpine # internal to docker// i think it just means use node
-    command: sh -c "npm install && npm run server-dev" # what to run on start
+    image: node:12-alpine
+    command: sh -c "npm install && npm run start"
     ports:
-      - 3000:3000 # maps local host port to container port
-    working_dir: /app # where the app is
+      - 3000:3000 
+    working_dir: /app
     volumes: 
       - ./:/app
     environment: 
@@ -15,15 +14,16 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: weather
+      OPEN_WEATHER_API_KEY: 655dfc390726be35679ee1f171b45301
 
-  back:
-    image: node:12-alpine
-    command: sh -c "npm run react-dev"
-    working_dir: /app
-    ports: 
-      - 8080:8080
-    volumes: 
-      - ./:/app
+  # back:
+  #   image: node:12-alpine
+  #   command: sh -c "npm run react-dev"
+  #   working_dir: /app
+  #   ports: 
+  #     - 8080:8080
+  #   volumes: 
+  #     - ./:/app
   
   mysql:
     image: mysql:5.7

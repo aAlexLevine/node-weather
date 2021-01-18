@@ -9,7 +9,8 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb/hooks',
     'airbnb',
-    'plugin:testing-library/recommended/react',//this breaks lint use library/react instead
+    //check library/react
+    'plugin:testing-library/recommended/react',
     'plugin:jest-dom/recommended',
     //install jest pkg
   ],
@@ -23,9 +24,6 @@ module.exports = {
     },
     ecmaVersion: 2018,
   },
-  plugins: [
-    'react',
-  ],
-  rules: {
-  },
+  plugins: ['react'],
+  rules: {},
 };
