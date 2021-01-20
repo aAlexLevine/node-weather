@@ -1,23 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({
-  handleSearchSubmit,
-  setSearchTerm,
-  searchTerm,
-}) => {
+const Search = ({ handleSearchSubmit, setSearchTerm, searchTerm }) => {
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    const currentTerm = event.target.value
+    const isTermValid = event.target.validity.valid
+    if (isTermValid) {
+      setSearchTerm(currentTerm)
+    } 
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0" _lpchecked="1" data-testid="zipCodeForm">
+    <form
+      className="form-inline my-2 my-lg-0"
+      _lpchecked="1"
+      data-testid="zipCodeForm"
+    >
       <input
         className="form-control mr-sm-2"
         type="text"
         placeholder="Zip Code"
         aria-label="Zip Code"
         maxLength="5"
+        pattern="[0-9]*"
         value={searchTerm}
         onChange={handleChange}
       />

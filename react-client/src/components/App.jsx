@@ -49,6 +49,7 @@ const App = () => {
   const handleSearchSubmit = (event, zip = searchTerm) => {
     event.preventDefault();
     if (isZipCodeValid(zip)) {
+      console.log('isvalid zip')
       fetchWeatherByZip(zip);
       setSearchTerm('');
       hideWeather();

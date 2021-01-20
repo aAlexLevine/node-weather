@@ -26,7 +26,3 @@ services:
 
 volumes:
   weather-mysql-data:
-
-
-
-
