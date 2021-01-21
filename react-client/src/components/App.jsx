@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import isZipCodeValid from './utils/zipCodeValidation';
 import NavigationBar from './NavigationBar';
@@ -9,6 +9,8 @@ import WeatherCard from './WeatherCard';
 import useFavorites from './useFavorites';
 
 const App = () => {
+  const inputRef = useRef();
+  const favoritesListRef = useRef();
   const [searchTerm, setSearchTerm] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [isWeatherVisible, setIsWeatherVisible] = useState(false);
@@ -19,7 +21,6 @@ const App = () => {
     addToFavorites,
     removeZipFromFavorites,
   } = useFavorites();
-
 
   useEffect(() => {
     getAllFavoriteZips();
@@ -32,28 +33,37 @@ const App = () => {
   }, [weatherData]);
 
   useEffect(() => {
-    if (searchTerm.length === 0) {
-      hideFavorites();
-    } else if (searchTerm.length > 0) {
-      showFavorites();
-    }
-  }, [searchTerm]);
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
 
   const fetchWeatherByZip = (zip) => {
     axios
       .get('/api/main/getWeatherByZip', { params: { zip } })
       .then((results) => setWeatherData(results.data))
-      .catch((err) => console.log('Error: Failed to fetch weather', err));
+      .catch((err) =>
+        console.log('Error: Failed to fetch weather', err.response)
+      );
   };
 
   const handleSearchSubmit = (event, zip = searchTerm) => {
     event.preventDefault();
+    inputRef.current.blur();
+    hideWeather();
     if (isZipCodeValid(zip)) {
-      console.log('isvalid zip')
       fetchWeatherByZip(zip);
       setSearchTerm('');
-      hideWeather();
       hideFavorites();
+    }
+  };
+
+  const handleClickOutside = (event) => {
+    const isListItem = favoritesListRef.current?.contains(event.target);
+    const isInputEl = inputRef.current.contains(event.target);
+    if (!isInputEl && !isListItem) {
+      hideFavorites(event);
     }
   };
 
@@ -72,6 +82,8 @@ const App = () => {
           handleSearchSubmit={handleSearchSubmit}
           setSearchTerm={setSearchTerm}
           searchTerm={searchTerm}
+          showFavorites={showFavorites}
+          inputRef={inputRef}
         />
       </NavigationBar>
       <Footer>
@@ -80,6 +92,7 @@ const App = () => {
             favorites={favorites}
             handleSearchSubmit={handleSearchSubmit}
             removeZipFromFavorites={removeZipFromFavorites}
+            favoritesListRef={favoritesListRef}
           />
         )}
         {isWeatherVisible && (

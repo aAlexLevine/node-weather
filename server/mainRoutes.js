@@ -27,10 +27,7 @@ router.get('/getWeatherByZip', (req, res) => {
 
 router.get('/getAllFavoriteZips', (req, res) => {
   db.getAllFavoriteZips()
-    .then((zips) => {
-      console.log('zips---', zips);
-      res.send(zips);
-    })
+    .then((zips) => res.send(zips))
     .catch((err) => console.log('Error: Server could not retrieve favorites', err));
 });
 
@@ -50,7 +47,8 @@ router.post('/removeFromFavorites', (req, res) => {
   const zip = req.body;
   db.removeFromFavorites(zip)
     .then(() => {
-      db.getAllFavoriteZips().then((zips) => res.send(zips));
+      db.getAllFavoriteZips()
+      .then((zips) => res.send(zips));
     })
     .catch((err) => {
       res.send(err);

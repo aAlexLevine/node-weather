@@ -5,6 +5,7 @@ const FavoritesList = ({
   favorites,
   handleSearchSubmit,
   removeZipFromFavorites,
+  favoritesListRef,
 }) => {
   const handleClickDelete = (event, zip) => {
     event.stopPropagation();
@@ -12,7 +13,11 @@ const FavoritesList = ({
   };
 
   return (
-    <ul className="list-group" data-testid="favoritesList">
+    <ul
+      className="list-group"
+      data-testid="favoritesList"
+      ref={favoritesListRef}
+    >
       {favorites.map(({ name, zip }) => (
         <div
           className="list-group-item list-group-item-action"
@@ -50,6 +55,7 @@ FavoritesList.propTypes = {
   favorites: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleSearchSubmit: PropTypes.func.isRequired,
   removeZipFromFavorites: PropTypes.func.isRequired,
+  favoritesListRef: PropTypes.shape({}).isRequired,
 };
 
 export default FavoritesList;
