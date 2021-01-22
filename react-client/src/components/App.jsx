@@ -15,6 +15,7 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [isWeatherVisible, setIsWeatherVisible] = useState(false);
   const [isFavoritesVisible, setIsFavoritesVisible] = useState(false);
+  const [error, setError] = useState({ hasError: false, errMessage: '' });
   const {
     favorites,
     getAllFavoriteZips,
@@ -44,7 +45,7 @@ const App = () => {
       .get('/api/main/getWeatherByZip', { params: { zip } })
       .then((results) => setWeatherData(results.data))
       .catch((err) =>
-        console.log('Error: Failed to fetch weather', err.response)
+        setError({ hasError: true, errMessage: err.response.statusText })
       );
   };
 
@@ -56,6 +57,8 @@ const App = () => {
       fetchWeatherByZip(zip);
       setSearchTerm('');
       hideFavorites();
+    } else {
+      setError({ hasError: true, errMessage: 'Must be 5 digits' });
     }
   };
 
@@ -84,6 +87,8 @@ const App = () => {
           searchTerm={searchTerm}
           showFavorites={showFavorites}
           inputRef={inputRef}
+          error={error}
+          setError={setError}
         />
       </NavigationBar>
       <Footer>

@@ -10,7 +10,7 @@ router.get('/getWeatherByZip', (req, res) => {
     .getWeatherByZip(zip)
     .then((results) => {
       if (!results) {
-        res.statusMessage = 'city not found';
+        res.statusMessage = 'City not found';
         res.sendStatus(404).end();
         return;
       }
@@ -47,8 +47,7 @@ router.post('/removeFromFavorites', (req, res) => {
   const zip = req.body;
   db.removeFromFavorites(zip)
     .then(() => {
-      db.getAllFavoriteZips()
-      .then((zips) => res.send(zips));
+      db.getAllFavoriteZips().then((zips) => res.send(zips));
     })
     .catch((err) => {
       res.send(err);
